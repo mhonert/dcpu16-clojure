@@ -1,0 +1,35 @@
+384 -> 368 => 313
+
+
+or (x >= z) (t = 1)
+
+
+AND (x < z) (t = 0)
+
+(asm :SET :SP, 65535)
+
+(asm :SET :A, 4004)
+(asm :SET :B, 10)
+(asm :SET :C, 4)
+
+(asm :SET :Z, 0)
+(asm :loop01)
+(asm :ADD :Z, 1)
+(asm :IFG :Z, 16)
+(asm :SET :PC, :exit)
+
+(asm :SET :J, :A) ; x = (x << 1) | (y >> 15)
+(asm :SHR :J, 15)
+(asm :SHL :B, 1)
+(asm :SET :I, :EX) ; t = x >> 15
+(asm :BOR :B, :J)
+(asm :SHL :A, 1)  ; y = y << 1
+(asm :IFL :B, :C)
+(asm :IFE :I, 0)
+(asm :SET :PC, :loop01)
+(asm :SUB :B, :C) ; x = x - z
+(asm :ADD :A, 1)  ; y = y + 1
+(asm :SET :PC, :loop01)
+(asm :exit)
+
+(asm :SUB :PC, 1)

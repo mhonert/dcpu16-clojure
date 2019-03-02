@@ -1,0 +1,89 @@
+Data types:
+
+word
+short
+
+dword
+long
+
+fixnum
+
+string
+
+list of words [1 2 3]
+list of shorts [1s -2s 3s]
+list of dwords [1d 2d 3d]
+list of long [1l -2l 3l]
+list of fixnum [1.0f 2.5f 3.7f]
+list of strings ["hello" "world"]
+
+(+ 2 3)
+
+
+(map (fn [] i (* i 2)) [1 2 3 4])
+
+dat 1 2 3 4; list constant
+
+set push, 4    ; list length
+set push, 0    ; dat area for the list
+jsr pushWList
+set push, fn1
+jsr map
+    
+:fn1
+    set J, SP
+    set A, [J + 1] ; par i
+    mul A, 2
+    set PC, pop
+
+:pushWList
+    set I, pop ; return address
+    set B, pop ; list data
+    set C, pop ; list length
+    set A, C
+:loop01
+    ife C, 0
+    set PC, loop01end
+    set push, [B]
+    sub B, 1
+    set PC, loop01
+:loop01end
+    set push, A
+    set PC, I
+
+:map
+    set J, SP
+    set I, [J + 1]; par fn
+    set C, [J + 2]; par list length
+       
+_________________
+
+(println (rest [1 2 3 4 5]))
+
+
+def 0 5 1 2 3 4 5; addr 0
+
+set push, 0   ; addr of the list
+set push, 0
+jsr rest
+set push, A   ; store the return value on the stack
+set push, A
+set push 0
+jsr free-list ;free memory for list at addr. 0
+jsr println-list ; call the println function for lists
+jsr free-list ;free memory for list that was returned by 'rest' 
+
+-------------------------------------------------------------------
+
+(* (+ 2 3) 2)
+
+SET A 2
+ADD A 3
+MUL A 2
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+[x] Adapt code to new DCPU-16 spec
+	[x] Assembler
+	[x] Disassembler
+	[x] Emulator
+	[x] Compiler
+
+[x] Optimize parameter/local variable handling
+    - always use SP instead of I/J?
+      => requires to keep track of all changes to SP (e.g. push/pop operations)!
+
+[x] Save registers inside functions that are used anywhere within the function
+    (scan the emitted function code?)
+
+[ ] Bug fixes
+    [ ] Fix label handling in 3 word operations (e.g. SET [label01], 1234)
+ 
+[ ] Conditional expressions
+
+[ ] Additional statements
+	[ ] IF
+	[ ] some loop constructs
+	
+     
+[x] Integrate original DCPU-16 emulator from 0x10c
+
+[ ] Optimizations
+    [ ] Merge multiple "ADD SP, literal" statements for nested 'let' expressions
+    [ ] PH: [SP + 0] => [SP]
+
+[ ] Macro support
+    -> Macros written in Clojure syntax?

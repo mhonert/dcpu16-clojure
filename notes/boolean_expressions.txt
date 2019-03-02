@@ -1,0 +1,114 @@
+Use Case 1: Return value of a simple boolean expression is required
+
+(= i 10)
+
+SET A, 0
+IFE [SP+2], 10
+SET A, 1
+
+---
+
+Use Case 2: Simple boolean expression is used for controlling the program flow
+(if (= i 10)
+  (set! j 5)
+  (set! j 10))
+
+IFE [SP+2], 10
+SET PC, label_001_true
+SET [SP+3], 10
+SET PC, :label_001_if_end
+:label_001_if_true:
+SET [SP+3], 5
+:label_001_if_end
+
+---
+Use Case 3: Boolean expression with AND: return value
+
+(and (= i 10) (= j 5))
+
+SET A, 0
+IFE [SP+2], 10
+IFE [SP+3], 5
+SET A, 1
+
+---
+Use Case 4: Boolean expression with AND: control flow
+
+(if (and (= i 10) (= j 5))
+  (set! j 10)
+  (set! j 5))
+
+IFE [SP+2], 10
+IFE [SP+3], 5
+SET PC, label_002_true
+SET [SP+3], 10
+SET PC, label_002_end
+:label_002_true
+SET [SP+3], 5
+:label_002_end
+
+---
+Use Case 5: Boolean expression with OR: return value
+
+(or (= i 10) (= j 5))
+
+-> (not (and (not= i 10) (not= j 5)))
+
+SET A, 1
+IFN [SP+2], 10
+IFN [SP+3], 5
+SET A, 0
+
+---
+Use Case 5: Boolean expression with AND and OR: return value
+
+(or (and (= i 10) (= j 5)) (= i 20))
+
+---
+Use Case 6: Boolean expression mixed with math. expression
+
+(and (= (* i 10) 100)) (= j 20))
+
+SET A, 0
+SET B, i
+MUL B, 10
+IFE B, 100
+IFE j, 20
+SET A, 0
+
+(and (= j 20) (= (* i 10) 100)))
+
+SET A, 0
+IFN j, 20
+SET PC, _false
+SET B, i
+MUL B, 10
+IFE B, 100
+SET A, 1
+:_false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

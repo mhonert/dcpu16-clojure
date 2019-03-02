@@ -1,0 +1,22 @@
+; Mul32x32
+(let [a 17
+      b 29
+      [A B] (split-dword a)
+      [C D] (split-dword b)
+      [r1 ir2] (split-dword (long (* a b)))
+      [r2 r3] (split-dword ir2)]
+  (println "Expected result: " (long (* a b)))
+  (println "Expected result: " [r1 r2 r3])
+  (println "[A B]" [A B])
+  (println "[C D]" [C D])
+  (let [
+        I B
+        [O I] (mul16 I D)
+        [O B] (mul16 B, C)
+        [O B] (add16 B, I)
+        I A
+        [O I] (mul16 I, D)
+        [O B] (add16 B, I)
+        [O A] (mul16 A, C)
+        [O B] (add16 B, O)]
+    (println [A B] (merge-words [A B]))))

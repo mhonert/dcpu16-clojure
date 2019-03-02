@@ -1,0 +1,65 @@
+Variable definitions:
+--------------------------------------------------------
+(let [bindings*] expressions*)
+
+binding: var expression
+
+var:
+
+var-name! => mutable variable  (?)
+
+[x] (let [data-type var-name expr]
+      expr*)
+
+[x] (defn data-type fn-name [attr*]
+      expr*)
+
+[x] (set! mutable-var expr)
+
+Data types:
+--------------------------------------------------------
+short (16 bit)
+word (16 bit)
+int (32 bit)
+string
+list
+vector
+func function
+fix fixed point number (32 bit)
+
+
+Control structures:
+--------------------------------------------------------
+(until condition
+  expression*)
+
+(while condition
+  expression*)
+
+(loop
+  expression*
+
+(for [int i! 0]
+  (println i)
+  (inc! i)
+  (< i 10)
+
+(if condition then-expr else-expr)
+
+(cond
+  condition expr
+  condition expr
+  :else expr)
+
+
+Comparison operators:
+=
+<
+>
+not=   !=  <>   ?
+
+
+Logical ... operators:
+
+and, or, not 
+

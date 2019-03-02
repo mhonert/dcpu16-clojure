@@ -1,0 +1,67 @@
++
+-
+*
+/
+mod
+shl
+shr
+and
+bor
+xor
+
+
+
+
+IFG A, 32767
+JMP :op1_neg
+IFG B, 32767
+JMP :op1_pos_op2_neg
+:op1_pos_op2_pos
+DIV A, B
+JMP end_of_div
+
+:op1_pos_op2_neg
+XOR B, 0xFFFF
+ADD B, 1
+DIV A, B
+
+JMP :end_of_div
+
+:op1_neg
+IFG B, 32767
+JMP op1_and_op2_neg
+:op1_neg_op2_pos
+XOR A, 0xFFFF
+ADD A, 1
+DIV A, B
+JMP :end_of_div
+
+
+:op1_and_op2_neg
+XOR A, 0xFFFF
+INC A
+XOR B, 0xFFFF
+INC B
+DIV A, B
+JMP :end_of_div
+
+:end_of_div
+
+
+A B
++ + => DIV A, B
+
++ - => NEG B
+       DIV A, B
+       NEG A
+
+- + => NEG A
+    => DIV A, B
+    => NEG A
+    special case: -32768 / 1 => overflow flag?
+
+- - => NEG A
+       NEG B
+       DIV A
+    
+
